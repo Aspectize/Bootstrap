@@ -98,11 +98,6 @@ Global.BootStrapClientService = {
         return retVal;
     },
 
-    ResetAlert: function (alertClass, classToReset) {
-        $('.' + alertClass).removeClass(classToReset);
-        $('.' + alertClass).html('');
-    },
-
     Navigate: function (viewName, schemaPath, id, title) {
         this.ShowView(viewName);
 
