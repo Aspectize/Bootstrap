@@ -18,7 +18,9 @@ Add Bootstrap in the Directories list :
 app.Directories = "Bootstrap";
 ```
 
-# 3 - Modal
+# 3 - Modal view
+
+Integration of Bootstrap Modal in your Aspectize app is easy.
 
 Define control as Modal
 
@@ -62,5 +64,29 @@ myModalSample.Save.click.BindCommand(aas.Services.Browser.BootStrapClientService
 
 ...somebutton.click.BindCommand(aas.Services.Browser.BootStrapClientService.ShowModal(aas.ViewName.MyModalSample, false, false));
 ```
-# 4 - Validation
+# 4 - Validation command
+
+The Boostrap Extension provides 2 commands to display validation errors:
+- DisplayValidator is used with Data validation
+- DisplayValidatorCommand is used with Command validation
+
+Define some input in your control:
+```html
+<div class="form-group">
+   <label class="col-xs-4 control-label">Name :</label>
+   <div class="col-xs-8">
+       <input name="TxtName" type="text" class="form-control" />
+       <p class="SmallError error-TxtName"></p>
+   </div>
+</div>
+```
+
+BindData with validation configuration : 
+- if data is invalid the DisplayValidator command will automatically display the className corresponding to error-ControlName
+- when Modal is saved, the DisplayValidatorCommand will displayed all errors within the form, and stop the Saving process
+
+```javascript
+myModalSample.TxtName.value.BindData(myModalSample.ParentData.Name, '', aas.Enum.BindingMode.OnValidation, true, aas.Enum.ErrorProcessor.Custom, 'Browser/BootStrapClientService.DisplayValidator');
+myModalSample.Save.click.BindCommand(aas.Services.Server.MyDataBaseService.SaveTransactional(aas.Data.MainData), '', false, true, false, aas.ViewName.MyModalSample, aas.Enum.ErrorProcessor.Custom, 'Browser/BootStrapClientService.DisplayValidatorCommand');
+```
 
