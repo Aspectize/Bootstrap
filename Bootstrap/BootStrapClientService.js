@@ -189,6 +189,41 @@ Global.BootStrapClientService = {
         })
 
         return uiView;
+    },
+
+    PrepareConfirmation: function (viewName, message, commandName, commandArgument) {
+
+        var uiSvc = Aspectize.Host.GetService(aas.Services.Browser.UIService);
+
+        uiSvc.SetContextValue('viewName', viewName);
+        uiSvc.SetContextValue('commandName', commandName);
+        uiSvc.SetContextValue('commandArgument', commandArgument);
+
+        Aspectize.Host.ExecuteCommand(aas.Services.Browser.BootStrapClientService.ShowModal, viewName, false, false);
+
+        uiSvc.SetControlProperty(viewName, 'Message', message);
+    },
+
+    ClearConfirmationContext: function () {
+
+        var uiSvc = Aspectize.Host.GetService(aas.Services.Browser.UIService);
+        var viewName = uiSvc.GetContextValue('viewName');
+
+        uiSvc.SetContextValue('viewName', null);
+        uiSvc.SetContextValue('commandName', null);
+        uiSvc.SetContextValue('commandArgument', null);
+
+        Aspectize.Host.ExecuteCommand(aas.Services.Browser.BootStrapClientService.CloseModal, viewName);
+    },
+
+    Confirmation: function () {
+        var uiSvc = Aspectize.Host.GetService(aas.Services.Browser.UIService);
+
+        var commandName = uiSvc.GetContextValue('commandName');
+        var commandArgument = uiSvc.GetContextValue('commandArgument');
+
+        Aspectize.Host.ExecuteCommand(commandName, commandArgument);
+
     }
 
 };

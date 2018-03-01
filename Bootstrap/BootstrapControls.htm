@@ -50,6 +50,26 @@
         </div>
     </div>
 
+    <div aas-control="name:'Suppression', isModal:true, CancelCaption:'Cancel',ConfirmCaption:'Confirm', Title: 'Confirmation' ">
+        <div class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{Title}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text">
+                            <p><span class="ErrorMessage">{Message}</span></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" name="Cancel">{CancelCaption}</button>
+                        <button class="btn btn-primary" name="Confirm">{ConfirmCaption}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

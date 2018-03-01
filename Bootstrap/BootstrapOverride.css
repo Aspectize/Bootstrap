@@ -11,11 +11,28 @@
     display: none;
 }
 
-[aas-type="Bootstrap.BootstrapGrid"] > table > thead > tr > th.desc span.down, 
-[aas-type="Bootstrap.BootstrapGrid"] > table > thead > tr > th.asc span.up
-.BootstrapGrid table > thead > tr > th.desc span.down, 
-.BootstrapGrid table > thead > tr > th.asc span.up {
+[aas-type="Bootstrap.BootstrapGrid"] > table > thead > tr > th.desc span.up, 
+[aas-type="Bootstrap.BootstrapGrid"] > table > thead > tr > th.asc span.down,
+.BootstrapGrid table > thead > tr > th.desc span.up, 
+.BootstrapGrid table > thead > tr > th.asc span.down {
     display: inline;
+}
+
+[aas-type="Bootstrap.BootstrapGrid"] > table > thead > tr > th > span, 
+.BootstrapGrid table > thead > tr > th > span {
+    display: inline-block;
+    width: 100%;
+    cursor:pointer;
+}
+
+[aas-type="Bootstrap.BootstrapGrid"] > table > thead > tr > th > span:hover,
+.BootstrapGrid table > thead > tr > th > span:hover {
+    background-color: #eee;
+}
+
+[aas-type="Bootstrap.BootstrapGrid"] > table > thead > tr > th > span > span:nth-child(2), 
+.BootstrapGrid table > thead > tr > th > span > span:nth-child(2) {
+    float:right;
 }
 
 .popupDiv, .aasModal, .aasFlyOut {
