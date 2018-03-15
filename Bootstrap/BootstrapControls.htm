@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div aas-control="name:'Suppression', isModal:true, CancelCaption:'Cancel',ConfirmCaption:'Confirm', Title: 'Confirmation' ">
+    <div aas-control="name:'ModalMessage', isModal:true, CancelCaption:'Cancel',ConfirmCaption:'Confirm', Title: 'Confirmation',  DisplayCancel: '', DisplayConfirm: '' ">
         <div class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -63,13 +63,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-default" name="Cancel">{CancelCaption}</button>
-                        <button class="btn btn-primary" name="Confirm">{ConfirmCaption}</button>
+                        <button class="btn btn-default {DisplayCancel}" name="Cancel">{CancelCaption}</button>
+                        <button class="btn btn-primary {DisplayConfirm}" name="Confirm">{ConfirmCaption}</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
 </body>
 </html>
