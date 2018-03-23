@@ -204,25 +204,33 @@ Global.BootStrapClientService = {
         uiSvc.SetControlProperty(viewName, 'Message', message);
     },
 
-    ClearConfirmationContext: function () {
+    CancelConfirmation: function () {
 
         var uiSvc = Aspectize.Host.GetService(aas.Services.Browser.UIService);
         var viewName = uiSvc.GetContextValue('viewName');
 
+        Aspectize.Host.ExecuteCommand(aas.Services.Browser.BootStrapClientService.CloseModal, viewName);
+
         uiSvc.SetContextValue('viewName', null);
         uiSvc.SetContextValue('commandName', null);
         uiSvc.SetContextValue('commandArgument', null);
-
-        Aspectize.Host.ExecuteCommand(aas.Services.Browser.BootStrapClientService.CloseModal, viewName);
     },
 
     Confirmation: function () {
         var uiSvc = Aspectize.Host.GetService(aas.Services.Browser.UIService);
 
+        var viewName = uiSvc.GetContextValue('viewName');
+
         var commandName = uiSvc.GetContextValue('commandName');
         var commandArgument = uiSvc.GetContextValue('commandArgument');
 
         Aspectize.Host.ExecuteCommand(commandName, commandArgument);
+
+        Aspectize.Host.ExecuteCommand(aas.Services.Browser.BootStrapClientService.CloseModal, viewName);
+
+        uiSvc.SetContextValue('viewName', null);
+        uiSvc.SetContextValue('commandName', null);
+        uiSvc.SetContextValue('commandArgument', null);
 
     }
 
