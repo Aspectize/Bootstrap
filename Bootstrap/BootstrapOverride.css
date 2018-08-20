@@ -11,10 +11,10 @@
     display: none;
 }
 
-[aas-type="Bootstrap.BootstrapGrid"] > table > thead > tr > th.desc span.up, 
-[aas-type="Bootstrap.BootstrapGrid"] > table > thead > tr > th.asc span.down,
-.BootstrapGrid table > thead > tr > th.desc span.up, 
-.BootstrapGrid table > thead > tr > th.asc span.down {
+[aas-type="Bootstrap.BootstrapGrid"] > table > thead > tr > th.desc span.down, 
+[aas-type="Bootstrap.BootstrapGrid"] > table > thead > tr > th.asc span.up,
+.BootstrapGrid table > thead > tr > th.desc span.down, 
+.BootstrapGrid table > thead > tr > th.asc span.up {
     display: inline;
 }
 
