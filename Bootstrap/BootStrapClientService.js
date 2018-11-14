@@ -129,14 +129,12 @@ Global.BootStrapClientService = {
         $('.' + element).parent('li').addClass('active');
     },
 
-    ShowModal: function (viewName, keyboard, backdrop) {
+    ShowModal: function (viewName, keyboard, backdrop, draggable) {
         if (keyboard && (typeof keyboard === 'string')) {
-
             keyboard = keyboard.toLowerCase() === 'true';
         }
 
         if (backdrop && (typeof backdrop === 'string')) {
-
             backdrop = backdrop.toLowerCase() === 'true';
         }
 
@@ -168,6 +166,12 @@ Global.BootStrapClientService = {
                         $('body').addClass('modal-open');
                     }
                 });
+
+                if (draggable) {
+                    $('#' + viewName + " .modal-dialog").draggable({
+                        handle: ".modal-header"
+                    });
+                }
             }
         }
     },
