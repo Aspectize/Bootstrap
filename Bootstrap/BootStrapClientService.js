@@ -52,10 +52,16 @@ Global.BootStrapClientService = {
         if (message) {
             $(formGroupSelector).addClass('has-error');
             $(errorControlSelector).removeClass('hidden');
+            if ($(control).length > 0 && $(control)[0].setCustomValidity) {
+                $(control)[0].setCustomValidity(message);
+            }
         }
         else {
             $(formGroupSelector).removeClass('has-error');
             $(errorControlSelector).addClass('hidden');
+            if ($(control).length > 0 && $(control)[0].setCustomValidity) {
+                $(control)[0].setCustomValidity('');
+            }
         }
         $(errorControlSelector).html(message);
     },

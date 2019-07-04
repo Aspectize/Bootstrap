@@ -30,10 +30,12 @@
     background-color: #eee;
 }
 
+/*
 [aas-type="Bootstrap.BootstrapGrid"] > table > thead > tr > th > span > span:nth-child(2), 
 .BootstrapGrid table > thead > tr > th > span > span:nth-child(2) {
     float:right;
 }
+*/
 
 .popupDiv, .aasModal, .aasFlyOut {
     z-index: 1039;
