@@ -13,8 +13,11 @@ Global.BootStrapClientService = {
 
             var gpClass = div.parentElement.parentElement.className;
             var inline = rx.test(gpClass);
+            var cbClass = inline ? 'checkbox-inline' : 'checkbox';
 
-            if (!div.className) div.className = inline ? 'checkbox-inline' : 'checkbox';
+            if (div.className) {
+                div.className += ' ' + cbClass;
+            } else div.className = cbClass;
         });
     },
 
