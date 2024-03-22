@@ -82,6 +82,7 @@
     <Content Include="bootstrap 3.2.0\js\bootstrap.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="BootStrap5ClientService.js" />
     <Content Include="BootStrapClientService.js" />
     <Content Include="BootstrapControls.htm" />
     <Content Include="BootstrapOverride.css" />
