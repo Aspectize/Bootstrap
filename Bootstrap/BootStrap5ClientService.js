@@ -9,17 +9,19 @@ Global.BootStrap5ClientService = {
         Aspectize.ExecuteCommand(aas.Services.Browser.UIService.ShowView(viewName));
 
         var view = document.getElementById(viewName);
-        var bsModal = new bootstrap.Modal(view, { backdrop: !!closeOnBackdropClick || 'static', keyboard: !!closeOnEscape, focus: true });
+        if (view) {
+            var bsModal = new bootstrap.Modal(view, { backdrop: !!closeOnBackdropClick || 'static', keyboard: !!closeOnEscape, focus: true });
 
-        view.addEventListener('hidden.bs.modal', function (event) {
-            var uiService = Aspectize.Host.GetService('UIService');
+            view.addEventListener('hidden.bs.modal', function (event) {
+                var uiService = Aspectize.Host.GetService('UIService');
 
-            uiService.UnactivateView(viewName);
-        });
+                uiService.UnactivateView(viewName);
+            });
 
-        bsModal.show();
+            bsModal.show();
 
-        document.body.style.paddingRight = '0px'; /* Pb Bootstrap ajoute 15px de padding-right sur la body à chaque création de Modal*/
+            document.body.style.paddingRight = '0px'; /* Pb Bootstrap ajoute 15px de padding-right sur la body à chaque création de Modal*/
+        } 
     },
 
     CloseModal: function (viewName) {
