@@ -33,7 +33,7 @@ Global.BootStrap5ClientService = {
             bsModal.hide();
             document.body.classList.remove('modal-open'); /* Pb Bootstrap ajoute 15px de padding-right sur la body à chaque création de Modal*/
             document.body.style.paddingRight = '0px';
-            bsModal.dispose();
+            //bsModal.dispose();
 
             Aspectize.ExecuteCommand(aas.Services.Browser.UIService.UnactivateView(viewName));
         }
