@@ -15,9 +15,6 @@ Aspectize.Extend("ConfirmButton", {
 "  <div class='modal-dialog' role='document'>" +
 "    <div class='modal-content'>" +
 "      <div class='modal-header'>" +
-"        <button name='aasCancel' type='button' class='close'>" +
-"          <span>&times;</span>" +
-"        </button>" +
 "        <h4 class='modal-title'></h4>" +
 "      </div>" +
 "      <div class='modal-body'></div>" +
