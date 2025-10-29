@@ -248,6 +248,16 @@ Global.BootStrapClientService = {
         uiSvc.SetContextValue('commandName', null);
         uiSvc.SetContextValue('commandArgument', null);
 
+    },    
+
+    GetBootstrapVersion: function () {
+
+        if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+            return bootstrap.Tooltip.VERSION; // Bootstrap 5
+        } else if (typeof $.fn.tooltip !== 'undefined' && $.fn.tooltip.Constructor) {
+            return $.fn.tooltip.Constructor.VERSION; // Bootstrap 3 or 4
+        }
+        return 'Unknown';
     }
 
 };
