@@ -4,13 +4,15 @@ Aspectize.Extend("ConfirmButton", {
 
     Binding: 'SimpleBinding',
     Properties: {
-        Text: 'ConfirmButton', ToolTip: '', Title: '', Message: '', ModalSize: '',
+        ButtonText: 'ConfirmButton', ButtonToolTip: '',
+        Title: '', Message: '', ModalSize: '',
         CancelBtnText: 'Cancel', CancelBtnClass: 'btn-default', CancelBtnToolTip: '',
         ConfirmBtnText: 'Ok', ConfirmBtnClass: 'btn-primary', ConfirmBtnToolTip: ''
     },
     Events: ['OnNeedMessage', 'OnConfirm', 'OnCancel'],
 
     Html: [
+// HTML for Boostsrap 3... Modal
 "<div class='modal fade' tabindex='-1' role='dialog'>" +
 "  <div class='modal-dialog' role='document'>" +
 "    <div class='modal-content'>" +
@@ -26,6 +28,7 @@ Aspectize.Extend("ConfirmButton", {
 "  </div>" +
 "</div>",
 
+// HTML for Boostsrap 5... Modal TODO
 ""
     ],
 
@@ -42,10 +45,16 @@ Aspectize.Extend("ConfirmButton", {
 
     Init: function (elem, controlInfo) {
 
+        // elem is the div that is going to behave like a button (btn btn-primary)
+        // The click on this button will show a bootstrap modal. 
+        // The content and title of the modal are (Title, Message). 
+        // If Message is empty the showing the modal will be delayed until a Message is bound.
+        // This is notified to the App by OnNeedMessage event.
+
         var version = '';
         var idModal = elem.id + '-Modal';
 
-        var modalDisplayed = false;
+        var modalDisplayDelayed = false;
         var modalContainer = null;
         var bsModal = null;
         var bsDialog = null;
@@ -64,12 +73,12 @@ Aspectize.Extend("ConfirmButton", {
             bsBody = bsModal.querySelector('.modal-body');
         }
 
-        var text = Aspectize.UiExtensions.GetProperty(elem, 'Text');
-        var toolTip = Aspectize.UiExtensions.GetProperty(elem, 'ToolTip');
-        var btnClass = Aspectize.UiExtensions.GetProperty(elem, 'BtnClass');
-
+        var text = Aspectize.UiExtensions.GetProperty(elem, 'ButtonText');
         if (text) elem.innerHTML = text;
+
+        var toolTip = Aspectize.UiExtensions.GetProperty(elem, 'ButtonToolTip');
         if (toolTip) elem.title = toolTip;
+
 
         var cancelBtn = bsModal.querySelector(".modal-footer [name='aasCancel']");
         cancelBtn.innerHTML = Aspectize.UiExtensions.GetProperty(elem, 'CancelBtnText');
@@ -83,20 +92,24 @@ Aspectize.Extend("ConfirmButton", {
 
         function showModal(message) {
 
-            if (modalDisplayed) {
-                var size = Aspectize.UiExtensions.GetProperty(elem, 'ModalSize');
-                if (size) bsDialog.className = 'modal-dialog ' + size;
+            if (modalDisplayDelayed) {
 
-                bsHeader.innerHTML = Aspectize.UiExtensions.GetProperty(elem, 'Title');
-                bsBody.innerHTML = message;
-                modalContainer.classList.remove('hidden');
-                $(bsModal).modal('show');
+                modalDisplayDelayed = false;
+                Aspectize.UiExtensions.ChangeProperty(elem, 'Message', '');
             }
+            
+            var size = Aspectize.UiExtensions.GetProperty(elem, 'ModalSize');
+            if (size) bsDialog.className = 'modal-dialog ' + size;
+
+            bsHeader.innerHTML = Aspectize.UiExtensions.GetProperty(elem, 'Title');
+            bsBody.innerHTML = message;
+            modalContainer.classList.remove('hidden');
+            $(bsModal).modal('show');
         }
 
         function closeModal(notify) {
 
-            modalDisplayed = false;
+            modalDisplayDelayed = false;
             $(bsModal).modal('hide');
             modalContainer.classList.add('hidden');
             if (notify) Aspectize.UiExtensions.Notify(elem, 'OnCancel', elem);
@@ -118,7 +131,7 @@ Aspectize.Extend("ConfirmButton", {
 
         Aspectize.AddHandler(elem, "click", function (e, eArgs) {
 
-            modalDisplayed = true;
+
             var message = Aspectize.UiExtensions.GetProperty(elem, 'Message');
             if (message) {
 
@@ -127,20 +140,20 @@ Aspectize.Extend("ConfirmButton", {
                 // The modal will be shown when we receive the message.
                 // The return string of the bound command to OnNeedMessage 
                 // must update the Message property of this control, for this to happen. 
+                modalDisplayDelayed = true;
                 Aspectize.UiExtensions.Notify(elem, 'OnNeedMessage', elem);
             }
         });
 
         Aspectize.UiExtensions.AddMergedPropertyChangeObserver(elem, function (sender, arg) {
 
-            if (arg.Text) elem.innerHTML = arg.Text;
-            if (arg.ToolTip) elem.title = arg.ToolTip;
-            if (arg.BtnClass) elem.className = 'btn ' + arg.BtnClass;
+            if (arg.ButtonText) elem.innerHTML = arg.ButtonText;
+            if (arg.ButtonToolTip) elem.title = arg.ButtonToolTip;
 
             if (arg.Title) bsHeader.inerHTML = arg.Title;
             if (arg.Message) {
                 bsBody.innerHTML = arg.Message;
-                showModal(arg.Message);
+                if (modalDisplayDelayed) showModal(arg.Message);
             }
 
             if (arg.CancelBtnText) cancelBtn.innerHTML = arg.CancelBtnText;
