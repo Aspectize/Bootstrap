@@ -88,7 +88,7 @@ Aspectize.Extend("ConfirmButton", {
     Binding: 'SimpleBinding',
     Properties: {
         ButtonText: 'ConfirmButton', ButtonToolTip: '',
-        ViewName: '', Title: '', Message: '', CloseOnEscape: false, CloseOnBackdropClick: false, Draggable: false
+        ViewName: '', Title: '', Message: '', BoundMessage: '', CloseOnEscape: false, CloseOnBackdropClick: false, Draggable: false
     },
     Events: ['OnNeedMessage', 'OnConfirm', 'Click'],
 
@@ -140,28 +140,22 @@ Aspectize.Extend("ConfirmButton", {
         }
 
         Aspectize.AddHandler(elem, "click", function (e, eArgs) {
+            
+            var message = Aspectize.UiExtensions.GetProperty(elem, 'BoundMessage');
+            if (message) {
 
-            // The modal will be shown when we receive the message.
-            // The return string of the bound command to OnNeedMessage 
-            // must update the Message property of this control, for this to happen. 
-            modalDisplayDelayed = true;
-            Aspectize.UiExtensions.Notify(elem, 'OnNeedMessage', elem);
+                var viewName = Aspectize.UiExtensions.GetProperty(elem, 'ViewName');
+                if (viewName) {
+                    showModal(message);
+                } else Aspectize.UiExtensions.Notify(elem, 'Click', elem);
 
-            //var message = Aspectize.UiExtensions.GetProperty(elem, 'Message');
-            //if (message) {
-
-            //    var viewName = Aspectize.UiExtensions.GetProperty(elem, 'ViewName');
-            //    if (viewName) {
-            //        showModal(message);
-            //    } else Aspectize.UiExtensions.Notify(elem, 'Click', elem);
-
-            //} else {
-            //    // The modal will be shown when we receive the message.
-            //    // The return string of the bound command to OnNeedMessage 
-            //    // must update the Message property of this control, for this to happen. 
-            //    modalDisplayDelayed = true;
-            //    Aspectize.UiExtensions.Notify(elem, 'OnNeedMessage', elem);
-            //}
+            } else {
+                // The modal will be shown when we receive the message.
+                // The return string of the bound command to OnNeedMessage 
+                // must update the Message property of this control, for this to happen. 
+                modalDisplayDelayed = true;
+                Aspectize.UiExtensions.Notify(elem, 'OnNeedMessage', elem);
+            }
         });
 
         Aspectize.UiExtensions.AddMergedPropertyChangeObserver(elem, function (sender, arg) {
