@@ -71,9 +71,6 @@ Global.BootStrapClient = {
         var bsClientSvc = getBootsrapClientService();
         bsClientSvc.CloseModal(this.bsConfirmationViewName);
         this.bsConfirmationViewName = this.bsConfirmButton = null;
-
-        Aspectize.UiExtensions.ChangeProperty(elem, 'Message', '');
-
     },
 
     Confirmation: function () {
@@ -83,8 +80,6 @@ Global.BootStrapClient = {
         var bsClientSvc = getBootsrapClientService();
         bsClientSvc.CloseModal(this.bsConfirmationViewName);
         this.bsConfirmationViewName = this.bsConfirmButton = null;
-
-
     }
 };
 
@@ -159,6 +154,7 @@ Aspectize.Extend("ConfirmButton", {
                 // The return string of the bound command to OnNeedMessage 
                 // must update the Message property of this control, for this to happen. 
                 modalDisplayDelayed = true;
+                Aspectize.UiExtensions.ChangeProperty(elem, 'Message', '');
                 Aspectize.UiExtensions.Notify(elem, 'OnNeedMessage', elem);
             }
         });
