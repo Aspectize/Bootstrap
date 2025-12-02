@@ -71,6 +71,9 @@ Global.BootStrapClient = {
         var bsClientSvc = getBootsrapClientService();
         bsClientSvc.CloseModal(this.bsConfirmationViewName);
         this.bsConfirmationViewName = this.bsConfirmButton = null;
+
+        Aspectize.UiExtensions.ChangeProperty(elem, 'Message', '');
+
     },
 
     Confirmation: function () {
@@ -80,6 +83,8 @@ Global.BootStrapClient = {
         var bsClientSvc = getBootsrapClientService();
         bsClientSvc.CloseModal(this.bsConfirmationViewName);
         this.bsConfirmationViewName = this.bsConfirmButton = null;
+
+
     }
 };
 
