@@ -141,21 +141,27 @@ Aspectize.Extend("ConfirmButton", {
 
         Aspectize.AddHandler(elem, "click", function (e, eArgs) {
 
-            var message = Aspectize.UiExtensions.GetProperty(elem, 'Message');
-            if (message) {
+            // The modal will be shown when we receive the message.
+            // The return string of the bound command to OnNeedMessage 
+            // must update the Message property of this control, for this to happen. 
+            modalDisplayDelayed = true;
+            Aspectize.UiExtensions.Notify(elem, 'OnNeedMessage', elem);
 
-                var viewName = Aspectize.UiExtensions.GetProperty(elem, 'ViewName');
-                if (viewName) {
-                    showModal(message);
-                } else Aspectize.UiExtensions.Notify(elem, 'Click', elem);
+            //var message = Aspectize.UiExtensions.GetProperty(elem, 'Message');
+            //if (message) {
 
-            } else {
-                // The modal will be shown when we receive the message.
-                // The return string of the bound command to OnNeedMessage 
-                // must update the Message property of this control, for this to happen. 
-                modalDisplayDelayed = true;
-                Aspectize.UiExtensions.Notify(elem, 'OnNeedMessage', elem);
-            }
+            //    var viewName = Aspectize.UiExtensions.GetProperty(elem, 'ViewName');
+            //    if (viewName) {
+            //        showModal(message);
+            //    } else Aspectize.UiExtensions.Notify(elem, 'Click', elem);
+
+            //} else {
+            //    // The modal will be shown when we receive the message.
+            //    // The return string of the bound command to OnNeedMessage 
+            //    // must update the Message property of this control, for this to happen. 
+            //    modalDisplayDelayed = true;
+            //    Aspectize.UiExtensions.Notify(elem, 'OnNeedMessage', elem);
+            //}
         });
 
         Aspectize.UiExtensions.AddMergedPropertyChangeObserver(elem, function (sender, arg) {
