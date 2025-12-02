@@ -152,9 +152,9 @@ Aspectize.Extend("ConfirmButton", {
             } else {
                 // The modal will be shown when we receive the message.
                 // The return string of the bound command to OnNeedMessage 
-                // must update the Message property of this control, for this to happen. 
-                modalDisplayDelayed = true;
+                // must update the Message property of this control, for this to happen.                
                 Aspectize.UiExtensions.ChangeProperty(elem, 'Message', '');
+                modalDisplayDelayed = true;
                 Aspectize.UiExtensions.Notify(elem, 'OnNeedMessage', elem);
             }
         });
