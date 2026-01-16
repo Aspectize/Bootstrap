@@ -131,7 +131,13 @@ Aspectize.Extend("ConfirmButton", {
             bsClientSvc.ShowModal(viewName, keyboard, backdrop, draggable);
 
             var uiSvc = Aspectize.GetService(aas.Services.Browser.UIService);
-            uiSvc.SetControlProperty(viewName, 'Title', title);
+
+            var html = document.getElementById(viewName).innerHTML;
+            var titleMatch = html.match(/\{Title\}/);
+            if (titleMatch) {
+                uiSvc.SetControlProperty(viewName, 'Title', title);
+            }
+
             var divHtmlName = viewName + '-Message';
             var hasDivHtml = document.getElementById(divHtmlName);
             if (hasDivHtml) {
